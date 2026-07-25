@@ -5,13 +5,15 @@ export const AuthContext = createContext();
 
  export const AuthProvider = ({children}) => {
     const[ currentUser, setCurrentUser] = useState(null);
-
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
   const user = JSON.parse(localStorage.getItem("currentUser"));
 
   if (user) {
     setCurrentUser(user);
   }
+
+  setLoading(false);
 }, []);
    
     const registerUser=(data)=>{
@@ -70,7 +72,7 @@ export const AuthContext = createContext();
   localStorage.removeItem("currentUser");
 };
     return (
-        <AuthContext.Provider value={{currentUser, registerUser, login, logout}}>
+        <AuthContext.Provider value={{currentUser, registerUser, login, logout , loading}}>
             {children}
         </AuthContext.Provider>
     );

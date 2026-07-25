@@ -1,15 +1,14 @@
-import React from 'react'
-import useAuth from '../Hooks/useAuth'
-import { Navigate, Outlet } from 'react-router'
+import useAuth from "../Hooks/useAuth";
+import { Outlet, Navigate } from "react-router";
 const ProtectedRoute = () => {
-    const {currentUser}=useAuth()
-    if(!currentUser){
-      return  <Navigate to="/"/>
-    }
-    return (
-    <div>
-        <Outlet/>
-    </div>
-  )
-}
-export default ProtectedRoute
+  const { currentUser, loading } = useAuth();
+  if (loading) {
+    return <div>Loading...</div>;
+  } 
+  if (!currentUser) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
+};
+export default ProtectedRoute;

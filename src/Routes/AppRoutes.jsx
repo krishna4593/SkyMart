@@ -9,6 +9,7 @@ import About from "../features/About/Page/About";
 import { RouterProvider } from "react-router";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
+import ProductsDetail from "../features/Shop/Page/ProductsDetail";
 
 const router = createBrowserRouter([
     {       
@@ -31,9 +32,9 @@ const router = createBrowserRouter([
     },
     {
        path:"/home",
-       element:<ProtectedRoute/>,
-       children:[{
-         path: "",
+      element:<ProtectedRoute/>,
+      children:[{   
+
         element: <MainLayout />,
         children: [
             {
@@ -45,13 +46,18 @@ const router = createBrowserRouter([
                 element: <Shop />
             },
             {
+                path: "shop/:id",
+                element: <ProductsDetail />,
+            },
+            {
                 path: "about",
                 element: <About />
             }
         ]
-       }]
+      }]
     }
 ])
+
 
 const AppRoutes = () => {
     return (
