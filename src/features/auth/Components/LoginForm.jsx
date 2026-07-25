@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
     const navigate = useNavigate()
@@ -15,11 +16,11 @@ const LoginForm = () => {
     const OnSubmit = (data)=>{
        const result = login(data);
        if(!result.success){
-        alert(result.message);
+         toast.error(result.message);
         reset();
         return;
        } 
-        alert(result.message);   
+        toast.success(result.message);   
         reset()
         navigate("/home");
     }

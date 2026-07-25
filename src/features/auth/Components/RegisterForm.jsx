@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
     const navigate = useNavigate();
@@ -11,14 +12,15 @@ const RegisterForm = () => {
     const password = watch("password")
     const {registerUser}= useAuth()
     
+    
     const OnSubmit = (data) =>{
        const result = registerUser(data);
        if(!result.success){
-        alert(result.message);
+      toast.error(result.message);
         reset();
         return;
        } 
-        alert(result.message);   
+         toast.success(result.message);
         reset()
         navigate("/");
     }
