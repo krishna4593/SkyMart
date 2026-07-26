@@ -4,7 +4,7 @@ import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { FiHeart, FiShoppingCart, FiTruck, FiShield, FiRotateCcw, FiChevronRight, FiMinus, FiPlus } from 'react-icons/fi';
 import ProductBadge from '../Components/ProductBadge';
 import ProductGrid from '../Components/ProductGrid';
-import { productsData } from '../data/products';
+import { productsData } from '../../../Services/products';
 
 const ProductsDetail = () => {
   // Mock data fetching based on ID or just use first product as placeholder
@@ -39,7 +39,7 @@ const ProductsDetail = () => {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white pt-24 pb-16 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Breadcrumbs */}
         <div className="flex items-center gap-2 text-sm text-neutral-400 mb-8">
           <Link to="/home" className="hover:text-white transition-colors">Home</Link>
@@ -53,17 +53,17 @@ const ProductsDetail = () => {
 
         {/* Product Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-          
+
           {/* Left: Image Gallery */}
           <div className="space-y-4">
             <div className="bg-white rounded-3xl p-8 aspect-square flex items-center justify-center">
-              <img 
-                src={images[0]} 
-                alt={title} 
+              <img
+                src={images[0]}
+                alt={title}
                 className="w-full h-full object-contain"
               />
             </div>
-            
+
             {/* Thumbnails (Placeholder logic) */}
             <div className="grid grid-cols-4 gap-4">
               {images.map((img, index) => (
@@ -73,10 +73,10 @@ const ProductsDetail = () => {
               ))}
               {/* Dummy thumbnails to show UI */}
               <div className="bg-white rounded-xl p-2 aspect-square flex items-center justify-center cursor-pointer border-2 border-transparent hover:border-[#c4ff00] transition-colors">
-                 <img src={images[0]} alt="Thumb" className="w-full h-full object-contain opacity-50" />
+                <img src={images[0]} alt="Thumb" className="w-full h-full object-contain opacity-50" />
               </div>
               <div className="bg-white rounded-xl p-2 aspect-square flex items-center justify-center cursor-pointer border-2 border-transparent hover:border-[#c4ff00] transition-colors">
-                 <img src={images[0]} alt="Thumb" className="w-full h-full object-contain opacity-50" />
+                <img src={images[0]} alt="Thumb" className="w-full h-full object-contain opacity-50" />
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@ const ProductsDetail = () => {
                 <ProductBadge text={category} />
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">{title}</h1>
-              
+
               <div className="flex items-center gap-4 mb-6">
                 <div className="flex gap-1">
                   {renderStars()}
@@ -96,13 +96,13 @@ const ProductsDetail = () => {
                 <span className="text-white font-medium">{rating}</span>
                 <span className="text-neutral-400">({reviewCount} reviews)</span>
               </div>
-              
+
               <div className="h-px bg-neutral-800 w-full mb-6"></div>
-              
+
               <div className="text-5xl font-bold text-[#c4ff00] mb-6">
                 ${price.toFixed(2)}
               </div>
-              
+
               <div className="h-px bg-neutral-800 w-full mb-6"></div>
 
               <p className="text-neutral-400 text-lg leading-relaxed mb-8">
@@ -126,7 +126,7 @@ const ProductsDetail = () => {
               <button className="flex-grow flex items-center justify-center gap-3 bg-[#c4ff00] hover:bg-[#b0e600] text-black py-4 px-8 rounded-xl font-bold text-lg transition-colors">
                 <FiShoppingCart size={22} /> Add to Cart
               </button>
-              
+
               <button className="p-4 bg-[#1a1a1a] border border-neutral-800 hover:border-neutral-600 rounded-xl text-neutral-400 hover:text-white transition-colors flex items-center justify-center">
                 <FiHeart size={24} />
               </button>

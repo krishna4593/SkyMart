@@ -1,5 +1,6 @@
 import React from 'react';
 import { FiArrowRight } from 'react-icons/fi';
+import { NavLink } from 'react-router';
 
 const categories = [
   { id: 1, name: 'Electronics', count: '17 items', icon: '💻' },
@@ -15,9 +16,9 @@ const CategorySection = () => {
     <div className="mt-12">
       <div className="flex justify-between items-end mb-6">
         <h2 className="text-2xl font-bold text-white">Shop by Category</h2>
-        <a href="#" className="text-[#CFFF04] text-sm font-semibold flex items-center gap-1 hover:underline">
+        <NavLink to="/home/shop" className="text-[#CFFF04] text-sm font-semibold flex items-center gap-1 hover:underline">
           View All <FiArrowRight size={16} />
-        </a>
+        </NavLink>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

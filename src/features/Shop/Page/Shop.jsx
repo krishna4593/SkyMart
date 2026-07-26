@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SearchBar from '../Components/SearchBar';
 import CategoryFilter from '../Components/CategoryFilter';
 import SortDropdown from '../Components/SortDropdown';
 import ProductGrid from '../Components/ProductGrid';
-import { productsData } from '../data/products';
+import { productsData } from '../../../Services/products';
+
 
 const Shop = () => {
   const [searchTerm, setSearchTerm] = useState('');
