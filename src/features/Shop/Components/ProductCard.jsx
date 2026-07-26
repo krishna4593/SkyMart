@@ -48,7 +48,7 @@ const ProductCard = ({ product }) => {
       <div className="p-5 flex flex-col flex-grow">
         <p className="text-neutral-500 text-xs font-medium mb-1 uppercase tracking-wider">{category}</p>
         
-        <Link to={`/products/${id}`}>
+        <Link to={`/home/shop/${id}`}>
           <h3 className="text-white font-semibold text-lg leading-tight mb-2 hover:text-[#c4ff00] transition-colors line-clamp-2">
             {title}
           </h3>

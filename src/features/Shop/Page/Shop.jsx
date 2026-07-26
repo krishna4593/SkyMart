@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SearchBar from '../Components/SearchBar';
 import CategoryFilter from '../Components/CategoryFilter';
 import SortDropdown from '../Components/SortDropdown';
 import ProductGrid from '../Components/ProductGrid';
 import { productsData } from '../data/products';
+import { useState } from 'react';
 
 const Shop = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const[debouncedSearch, setDebouncedSearch] = useState('')
+  
+
+  const filteredProducts = productsData.filter((product)=>product.title.toLowerCase().includes(debouncedSearch.toLowerCase()));
+   
+   useEffect(()=>{
+   let timeout=  setTimeout(()=>{
+        setDebouncedSearch(searchTerm)
+     },850)
+     return()=>{
+    clearTimeout(timeout)
+     }
+   },[searchTerm])
+   
+
+  
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white pt-24 pb-16 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
@@ -13,13 +31,13 @@ const Shop = () => {
         <div className="mb-10">
           <h1 className="text-4xl lg:text-5xl font-bold mb-3 tracking-tight">All Products</h1>
           <p className="text-neutral-400 text-lg">
-            {productsData.length} products found
+            {filteredProducts.length} products found
           </p>
         </div>
 
         {/* Filters Section */}
         <div className="flex flex-col lg:flex-row gap-4 mb-10 p-4 bg-[#131313] border border-neutral-800 rounded-2xl">
-          <SearchBar />
+          <SearchBar setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
           <div className="flex gap-4">
             <CategoryFilter />
             <SortDropdown />
@@ -27,7 +45,7 @@ const Shop = () => {
         </div>
 
         {/* Product Grid */}
-        <ProductGrid products={productsData} />
+        <ProductGrid products={filteredProducts}  />
       </div>
     </div>
   );
