@@ -1,7 +1,10 @@
 import React from 'react';
 import { FiArrowRight } from 'react-icons/fi';
+import { useNavigate } from 'react-router';
 
 const HeroSection = () => {
+    const navigate= useNavigate()
+    
   return (
     <div className="w-full relative mt-8 rounded-3xl overflow-hidden border border-[#333333] bg-[#161616]">
       {/* Background grid pattern */}
@@ -28,10 +31,10 @@ const HeroSection = () => {
             Discover today's picks — hand-curated products across electronics, fashion, and more.
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-4">
-            <button className="flex items-center gap-2 bg-[#CFFF04] text-black px-6 py-3 rounded-full font-semibold hover:bg-[#b8e600] transition-colors">
+            <button onClick={()=>navigate("/home/shop")} className="flex items-center gap-2 bg-[#CFFF04] text-black px-6 py-3 rounded-full font-semibold hover:bg-[#b8e600] transition-colors cursor-pointer">
               Shop Now <FiArrowRight />
             </button>
-            <button className="flex items-center gap-2 bg-transparent text-white border border-[#444444] px-6 py-3 rounded-full font-semibold hover:bg-[#222222] transition-colors">
+            <button onClick={()=>navigate("/home/shop")} className="flex items-center gap-2 bg-transparent text-white border border-[#444444] px-6 py-3 rounded-full font-semibold hover:bg-[#222222] transition-colors cursor-pointer">
               View All Products
             </button>
           </div>
