@@ -1,13 +1,14 @@
 import React from 'react';
 
-const CategoryFilter = () => {
+const CategoryFilter = ({selectedCategory,setSelectedCategory}) => {
   return (
     <div className="relative">
       <select 
         className="appearance-none bg-[#1a1a1a] border border-neutral-800 text-white py-3 pl-4 pr-10 rounded-xl focus:outline-none focus:border-[#c4ff00] transition-colors text-sm w-40 cursor-pointer"
-        defaultValue=""
+        value={selectedCategory}
+        onChange={(e)=>setSelectedCategory(e.target.value)}
       >
-        <option value="" disabled>All Categories</option>
+        <option value="all" >All Categories</option>
         <option value="electronics">Electronics</option>
         <option value="clothing">Clothing</option>
         <option value="furniture">Furniture</option>
