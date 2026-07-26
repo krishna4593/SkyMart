@@ -9,7 +9,7 @@ const Shop = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const[selectedOption, setSelectedOption]=useState();
+  const[selectedOption, setSelectedOption]=useState("all");
 
   const matchesSearch = (product) => {
     const search = debouncedSearch.toLowerCase();
@@ -27,9 +27,39 @@ const Shop = () => {
     );
   };
 
+const matchesFeature=(product)=>{
+  if(selectedOption==="all"){
+    return true;
+  }  
+
+  if(selectedOption==="featured"){
+    return product.featured;
+  }  
+
+  if(selectedOption==="newest"){
+    return product.isNew;
+  }  
+  return true;
+}
+  
+const applySorting=(filteredProducts)=>{
+  if(selectedOption==="price-low"){
+ return [...filteredProducts].sort((a,b)=>a.price-b.price);
+  }
+  if(selectedOption==="price-high"){
+ return [...filteredProducts].sort((a,b)=>b.price-a.price);
+  }
+  if(selectedOption==="rating"){
+    return [...filteredProducts].sort((a,b)=>b.rating-a.rating);
+  }
+  return filteredProducts;
+}
+
   const filteredProducts = productsData.filter(
-    (product) => matchesSearch(product) && matchesCategory(product)
+    (product) => matchesSearch(product) && matchesCategory(product) && matchesFeature(product)
   );
+
+  const sortedProducts = applySorting(filteredProducts);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -102,7 +132,7 @@ const Shop = () => {
         </div>
 
         {/* Product Grid */}
-        <ProductGrid products={filteredProducts} />
+        <ProductGrid products={sortedProducts} />
       </div>
     </div>
   );

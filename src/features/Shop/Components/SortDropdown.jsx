@@ -5,10 +5,10 @@ const SortDropdown = ({selectedOption,setSelectedOption}) => {
     <div className="relative">
       <select 
         className="appearance-none bg-[#1a1a1a] border border-neutral-800 text-white py-3 pl-4 pr-10 rounded-xl focus:outline-none focus:border-[#c4ff00] transition-colors text-sm w-40 cursor-pointer"
-        defaultValue="featured"
         value={selectedOption}
         onChange={(e)=>setSelectedOption(e.target.value)}
       >
+        <option value="all">All</option>
         <option value="featured">Featured</option>
         <option value="newest">Newest Arrivals</option>
         <option value="price-low">Price: Low to High</option>
