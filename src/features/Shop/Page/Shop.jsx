@@ -4,9 +4,16 @@ import CategoryFilter from '../Components/CategoryFilter';
 import SortDropdown from '../Components/SortDropdown';
 import ProductGrid from '../Components/ProductGrid';
 import { productsData } from '../../../Services/products';
-
+import { useNavigate, useSearchParams } from "react-router";
 
 const Shop = () => {
+  const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+  const categoryFromUrl = searchParams.get("category");
+  const featureFromUrl = searchParams.get("feature");
+  const sortFromUrl = searchParams.get("sort");
+
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -14,7 +21,6 @@ const Shop = () => {
 
   const matchesSearch = (product) => {
     const search = debouncedSearch.toLowerCase();
-
     return (
       product.title.toLowerCase().includes(search) ||
       product.description.toLowerCase().includes(search)
@@ -72,6 +78,39 @@ const applySorting=(filteredProducts)=>{
     };
   }, [searchTerm]);
 
+ useEffect(() => {
+  setSelectedCategory(categoryFromUrl || "all");
+  if (featureFromUrl) {
+    setSelectedOption(featureFromUrl);
+  } else if (sortFromUrl) {
+    setSelectedOption(sortFromUrl);
+  } else {
+    setSelectedOption("all");
+  }
+}, [categoryFromUrl, featureFromUrl, sortFromUrl]);
+
+const handleCategoryChange = (category) => {
+  setSelectedCategory(category);
+
+  if (category === "all") {
+    navigate("/home/shop");
+  } else {
+    navigate(`/home/shop?category=${encodeURIComponent(category)}`);
+  }
+};
+
+const handleOptionChange = (option) => {
+  setSelectedOption(option);
+
+  if (option === "all") {
+    navigate("/home/shop");
+  } else if (option === "featured" || option === "newest") {
+    navigate(`/home/shop?feature=${option}`);
+  } else {
+    navigate(`/home/shop?sort=${option}`);
+  }
+};
+
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white pt-24 pb-16 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
@@ -106,11 +145,11 @@ const applySorting=(filteredProducts)=>{
 
             <div className="flex gap-4">
               <CategoryFilter
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
+                 selectedCategory={selectedCategory}
+                 setSelectedCategory={handleCategoryChange}
               />
 
-              <SortDropdown selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
+              <SortDropdown selectedOption={selectedOption} setSelectedOption={handleOptionChange}/>
             </div>
           </div>
 
@@ -121,7 +160,7 @@ const applySorting=(filteredProducts)=>{
 
               <div className="flex flex-wrap gap-2">
                 <button
-                  onClick={() => setSelectedCategory('all')}
+                  onClick={() => handleCategoryChange("all")}
                   className="flex items-center gap-2 bg-lime-400/10 text-lime-400 border border-lime-400/30 rounded-full px-3 py-1 text-sm font-medium hover:bg-lime-400/20 transition"
                 >
                   <span className="capitalize">{selectedCategory}</span>

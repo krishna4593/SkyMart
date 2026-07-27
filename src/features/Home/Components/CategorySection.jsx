@@ -1,17 +1,37 @@
 import React from 'react';
 import { FiArrowRight } from 'react-icons/fi';
-import { NavLink } from 'react-router';
-
-const categories = [
-  { id: 1, name: 'Electronics', count: '17 items', icon: '💻' },
-  { id: 2, name: 'Clothing', count: '2 items', icon: '📦' },
-  { id: 3, name: 'Furniture', count: '3 items', icon: '📦' },
-  { id: 4, name: 'Home', count: '14 items', icon: '📦' },
-  { id: 5, name: 'Sports', count: '8 items', icon: '📦' },
-  { id: 6, name: 'Accessories', count: '6 items', icon: '📦' },
-];
+import { NavLink, useNavigate } from "react-router";
+import { productsData } from "../../../Services/products";
+const categoryIcons = {
+  electronics: "💻",
+  clothing: "👕",
+  furniture: "🪑",
+  home: "🏠",
+  sports: "⚽",
+  accessories: "⌚",
+};
 
 const CategorySection = () => {
+  const navigate = useNavigate();
+
+const handleCategoryClick = (category) => {
+ navigate(`/home/shop?category=${encodeURIComponent(category.toLowerCase())}`);
+};
+
+const categories = Object.entries(categoryIcons).map(([category, icon], index) => {
+  const count = productsData.filter(
+    (product) => product.category.toLowerCase() === category
+  ).length;
+
+  return {
+    id: index + 1,
+    name: category.charAt(0).toUpperCase() + category.slice(1),
+    count,
+    icon,
+  };
+});
+
+
   return (
     <div className="mt-12">
       <div className="flex justify-between items-end mb-6">
@@ -22,11 +42,14 @@ const CategorySection = () => {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        
         {categories.map((cat) => (
-          <div key={cat.id} className="bg-white rounded-2xl p-6 flex flex-col items-center justify-center cursor-pointer hover:shadow-lg transition-shadow">
+          <div key={cat.id}
+           onClick={() => handleCategoryClick(cat.name)}
+          className="bg-white rounded-2xl p-6 flex flex-col items-center justify-center cursor-pointer hover:shadow-lg transition-shadow">
             <span className="text-4xl mb-3">{cat.icon}</span>
             <h3 className="text-black font-bold text-lg">{cat.name}</h3>
-            <p className="text-gray-500 text-sm">{cat.count}</p>
+            <p className="text-gray-500 text-sm"> {cat.count} {cat.count === 1 ? "item" : "items"}</p>
           </div>
         ))}
       </div>
