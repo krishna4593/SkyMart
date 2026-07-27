@@ -7,9 +7,24 @@ import ProductGrid from '../Components/ProductGrid';
 import { productsData } from '../../../Services/products';
 
 const ProductsDetail = () => {
-  // Mock data fetching based on ID or just use first product as placeholder
-  const product = productsData[0];
-  const relatedProducts = productsData.slice(1, 5); // Just placeholder data
+  
+  const { id } = useParams();
+
+  const product = productsData.find(
+  (product) => product.id === Number(id)
+  );
+
+  const relatedProducts = productsData.filter((item) =>
+    item.category === product.category && item.id !== product.id)
+  .slice(0, 4);
+
+  if (!product) {
+  return (
+    <div className="min-h-screen flex items-center justify-center text-white">
+      Product not found
+    </div>
+  );
+}
 
   const {
     title,
