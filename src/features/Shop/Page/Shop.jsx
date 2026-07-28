@@ -1,115 +1,26 @@
-import React, { useContext, useEffect, useState } from 'react';
 import SearchBar from '../Components/SearchBar';
 import CategoryFilter from '../Components/CategoryFilter';
 import SortDropdown from '../Components/SortDropdown';
 import ProductGrid from '../Components/ProductGrid';
-import { productsData } from '../../../Services/products';
-import { useNavigate, useSearchParams } from "react-router";
+import useShop from '../Hook/useShop';
 
 const Shop = () => {
-  const navigate = useNavigate();
+  const {
+    searchTerm,
+    setSearchTerm,
+    selectedCategory,
+    selectedOption,
+    filteredProducts,
+    sortedProducts,
+    handleCategoryChange,
+    handleOptionChange,
+    clearFilters
+  } = useShop();
 
-  const [searchParams] = useSearchParams();
-  const categoryFromUrl = searchParams.get("category");
-  const featureFromUrl = searchParams.get("feature");
-  const sortFromUrl = searchParams.get("sort");
-
-  const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const[selectedOption, setSelectedOption]=useState("all");
-
-  const matchesSearch = (product) => {
-    const search = debouncedSearch.toLowerCase();
-    return (
-      product.title.toLowerCase().includes(search) ||
-      product.description.toLowerCase().includes(search)
-    );
-  };
-
-  const matchesCategory = (product) => {
-    return (
-      selectedCategory === 'all' ||
-      product.category.toLowerCase() === selectedCategory.toLowerCase()
-    );
-  };
-
-const matchesFeature=(product)=>{
-  if(selectedOption==="all"){
-    return true;
-  }  
-
-  if(selectedOption==="featured"){
-    return product.featured;
-  }  
-
-  if(selectedOption==="newest"){
-    return product.isNew;
-  }  
-  return true;
-}
-  
-const applySorting=(filteredProducts)=>{
-  if(selectedOption==="price-low"){
- return [...filteredProducts].sort((a,b)=>a.price-b.price);
-  }
-  if(selectedOption==="price-high"){
- return [...filteredProducts].sort((a,b)=>b.price-a.price);
-  }
-  if(selectedOption==="rating"){
-    return [...filteredProducts].sort((a,b)=>b.rating-a.rating);
-  }
-  return filteredProducts;
-}
-
-  const filteredProducts = productsData.filter(
-    (product) => matchesSearch(product) && matchesCategory(product) && matchesFeature(product)
-  );
-
-  const sortedProducts = applySorting(filteredProducts);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setDebouncedSearch(searchTerm);
-    }, 850);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [searchTerm]);
-
- useEffect(() => {
-  setSelectedCategory(categoryFromUrl || "all");
-  if (featureFromUrl) {
-    setSelectedOption(featureFromUrl);
-  } else if (sortFromUrl) {
-    setSelectedOption(sortFromUrl);
-  } else {
-    setSelectedOption("all");
-  }
-}, [categoryFromUrl, featureFromUrl, sortFromUrl]);
-
-const handleCategoryChange = (category) => {
-  setSelectedCategory(category);
-
-  if (category === "all") {
-    navigate("/home/shop");
-  } else {
-    navigate(`/home/shop?category=${encodeURIComponent(category)}`);
-  }
-};
-
-const handleOptionChange = (option) => {
-  setSelectedOption(option);
-
-  if (option === "all") {
-    navigate("/home/shop");
-  } else if (option === "featured" || option === "newest") {
-    navigate(`/home/shop?feature=${option}`);
-  } else {
-    navigate(`/home/shop?sort=${option}`);
-  }
-};
+  const hasActiveFilters =
+    searchTerm ||
+    selectedCategory !== "all" ||
+    selectedOption !== "all";
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white pt-24 pb-16 px-6 lg:px-12">
@@ -143,13 +54,25 @@ const handleOptionChange = (option) => {
               searchTerm={searchTerm}
             />
 
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
               <CategoryFilter
-                 selectedCategory={selectedCategory}
-                 setSelectedCategory={handleCategoryChange}
+                selectedCategory={selectedCategory}
+                setSelectedCategory={handleCategoryChange}
               />
 
-              <SortDropdown selectedOption={selectedOption} setSelectedOption={handleOptionChange}/>
+              <SortDropdown
+                selectedOption={selectedOption}
+                setSelectedOption={handleOptionChange}
+              />
+
+              {hasActiveFilters && (
+                <button
+                  onClick={clearFilters}
+                  className="px-4 py-2 rounded-lg border border-red-500 text-red-400 hover:bg-red-500 hover:text-white transition whitespace-nowrap"
+                >
+                  Clear Filters
+                </button>
+              )}
             </div>
           </div>
 

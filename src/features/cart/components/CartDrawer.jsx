@@ -6,7 +6,7 @@ import EmptyCart from './EmptyCart';
 import useCart from '../../../Hooks/useCart';
 
 
-const CartDrawer = ({ onClearCart, onCheckout }) => {
+const CartDrawer = () => {
   const { cartItems,isCartOpen,closeCart,totalItems,totalPrice} = useCart();
 
   return (
@@ -56,8 +56,7 @@ const CartDrawer = ({ onClearCart, onCheckout }) => {
           <div className="shrink-0">
             <CartFooter 
               total={totalPrice} 
-              onClearCart={onClearCart}
-              onCheckout={onCheckout}
+             
             />
           </div>
         )}

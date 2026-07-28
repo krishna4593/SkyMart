@@ -1,5 +1,6 @@
 import { createContext, useState ,useEffect} from "react";
 import useAuth from "../Hooks/useAuth";
+import { toast } from "react-toastify";
 
 export const CartContext = createContext();
 
@@ -82,11 +83,21 @@ export const CartProvider =({children})=>{
      const updatedCart= cartItems.filter((item)=>item.id!==id)
      setCartItems(updatedCart)
 }
+const checkOut=()=>{
+       toast.success(
+        <>
+            <div>🎉 Order placed successfully!</div>
+          
+        </>
+    );
+    clearCart()
+    closeCart()
+}
 
  const clearCart = () => {
     setCartItems([]);
 };
-    return <CartContext.Provider value={{isCartOpen,openCart,closeCart,cartItems,addToCart, getCartItem , increaseQuantity,decreaseQuantity, removeFromCart, totalPrice, totalItems, clearCart}}>
+    return <CartContext.Provider value={{isCartOpen,openCart,closeCart,cartItems,addToCart, getCartItem , increaseQuantity,decreaseQuantity, removeFromCart, totalPrice, totalItems, clearCart, checkOut}}>
         {children}
     </CartContext.Provider>
 }
