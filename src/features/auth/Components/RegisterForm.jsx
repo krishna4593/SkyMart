@@ -26,7 +26,7 @@ const RegisterForm = () => {
     }
 
   return (
-    <div className="w-full max-w-md p-8 rounded-2xl bg-[#131313] border border-neutral-800 shadow-2xl">
+    <div className="w-full max-w-md p-6 md:p-8 rounded-2xl bg-[#131313] border border-neutral-800 shadow-2xl">
       <div className="mb-8">
         <h2 className="text-3xl font-bold text-white mb-2">Create account</h2>
         <p className="text-neutral-400 text-sm">Join SkyMart and start shopping</p>

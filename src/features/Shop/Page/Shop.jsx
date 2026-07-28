@@ -54,7 +54,7 @@ const Shop = () => {
               searchTerm={searchTerm}
             />
 
-            <div className="flex gap-4 items-center">
+            <div className="flex flex-wrap gap-4 items-center">
               <CategoryFilter
                 selectedCategory={selectedCategory}
                 setSelectedCategory={handleCategoryChange}

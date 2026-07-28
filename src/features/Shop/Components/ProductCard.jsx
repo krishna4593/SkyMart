@@ -56,7 +56,7 @@ const ProductCard = ({ product }) => {
           <span className="text-neutral-500 text-xs">({reviewCount})</span>
         </div>
         
-        <div className="mt-auto flex items-center justify-between">
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-2">
           <span className="text-[#c4ff00] font-bold text-xl">${price.toFixed(2)}</span>
          {cartItem?(
            <div className="flex items-center gap-2 bg-[#c4ff00] text-black px-3 py-2 rounded-xl">

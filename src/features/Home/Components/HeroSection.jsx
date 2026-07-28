@@ -16,14 +16,14 @@ const HeroSection = () => {
         }}
       ></div>
 
-      <div className="relative flex flex-col md:flex-row items-center justify-between p-10 md:p-16 gap-8">
+      <div className="relative flex flex-col md:flex-row items-center justify-between p-6 md:p-16 gap-8">
         
         {/* Left Content */}
         <div className="flex-1 space-y-6">
           <p className="text-[#CFFF04] font-semibold text-sm tracking-wider uppercase flex items-center gap-2">
             Good Afternoon <span>👋</span>
           </p>
-          <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
             Welcome back,<br />
             <span className="text-[#CFFF04]">{JSON.parse(localStorage.getItem("currentUser")).name}!</span>
           </h1>
