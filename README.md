@@ -1,16 +1,85 @@
-# React + Vite
+# 🛍️ SkyMart
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SkyMart is a modern e-commerce frontend built with **React** and **Vite**. It provides a smooth shopping experience with authentication, product browsing, advanced filtering, cart management, and responsive design.
 
-Currently, two official plugins are available:
+## 🚀 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🔗 https://sky-mart-five-gamma.vercel.app
 
-## React Compiler
+## 📌 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🔐 User Authentication (Register, Login, Logout)
+- 🛡️ Protected & Public Routes
+- 🛍️ Browse Products
+- 🔍 Search with Debouncing
+- 🏷️ Category Filtering
+- ⭐ Featured & New Products Filter
+- ↕️ Product Sorting
+- 🧩 Multiple Filters Together
+- 🛒 Shopping Cart
+- 💾 User-specific Cart Persistence
+- ✅ Checkout Functionality
+- 📱 Responsive Design
+- ⚡ Route-Level Code Splitting
+- 🔝 Scroll to Top on Route Change
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 19
+- Vite
+- React Router v7
+- Tailwind CSS
+- React Hook Form
+- Context API
+- React Toastify
+- Local Storage
+
+## 📂 Folder Structure
+
+```text
+src
+├── Components
+├── Context
+├── Features
+├── Hooks
+├── Layouts
+├── Routes
+├── Services
+├── Utils
+└── App.jsx
+```
+
+## ⚙️ Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/krishna4593/SkyMart.git
+
+# Navigate to the project
+cd SkyMart
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+
+
+## 🌱 Future Improvements
+
+- Backend Integration
+- Wishlist
+- User Profile
+- Order History
+- Payment Gateway
+- Product Reviews
+
+## 👨‍💻 Author
+
+**Krishna Pandey**
+
+GitHub: https://github.com/krishna4593
+
+LinkedIn: www.linkedin.com/in/krishna-pandey-146029387
