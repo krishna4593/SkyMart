@@ -70,6 +70,7 @@ export const AuthContext = createContext();
    const logout = () => {
   setCurrentUser(null);
   localStorage.removeItem("currentUser");
+ 
 };
     return (
         <AuthContext.Provider value={{currentUser, registerUser, login, logout , loading}}>

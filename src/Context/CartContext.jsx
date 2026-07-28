@@ -1,10 +1,35 @@
-import { createContext, useState } from "react";
+import { createContext, useState ,useEffect} from "react";
+import useAuth from "../Hooks/useAuth";
 
 export const CartContext = createContext();
 
 export const CartProvider =({children})=>{
+    const{currentUser}=useAuth();
    const [isCartOpen,setIsCartOpen]= useState(false)
    const [cartItems,setCartItems]= useState([])
+   const cartKey = currentUser? `cart_${currentUser.email}`: null;
+
+   useEffect(() => {
+    if (!cartKey) {
+        setCartItems([]);
+        return;
+    }
+     try {
+        const storedCart = localStorage.getItem(cartKey);
+        if (storedCart) {
+        setCartItems(JSON.parse(storedCart));
+        } else {
+        setCartItems([]);
+        }
+       } catch (error) {
+        console.error("Failed to load cart:", error);
+        setCartItems([]);
+     }}, [cartKey]);
+
+      useEffect(() => {
+     if (!cartKey) return;
+    localStorage.setItem(cartKey,JSON.stringify(cartItems)
+    );}, [cartItems,cartKey]);
 
    const openCart=()=>{setIsCartOpen(true)}
    const closeCart=()=>{setIsCartOpen(false)}
@@ -61,7 +86,7 @@ export const CartProvider =({children})=>{
  const clearCart = () => {
     setCartItems([]);
 };
-    return <CartContext.Provider value={{isCartOpen,openCart,closeCart,cartItems,setCartItems , addToCart, getCartItem , increaseQuantity,decreaseQuantity, removeFromCart, totalPrice, totalItems, clearCart}}>
+    return <CartContext.Provider value={{isCartOpen,openCart,closeCart,cartItems,addToCart, getCartItem , increaseQuantity,decreaseQuantity, removeFromCart, totalPrice, totalItems, clearCart}}>
         {children}
     </CartContext.Provider>
 }

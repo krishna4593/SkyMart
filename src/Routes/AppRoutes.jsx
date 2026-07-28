@@ -1,15 +1,16 @@
-import { createBrowserRouter } from "react-router";
-import Login from "../features/auth/Page/Login";
-import Register from "../features/auth/Page/Register";
-import AuthLayout from "../Layouts/AuthLayout";
-import MainLayout from "../Layouts/MainLayout";
-import Home from "../features/Home/Page/Home";
-import Shop from "../features/Shop/Page/Shop";
-import About from "../features/About/Page/About";
-import { RouterProvider } from "react-router";
+import { lazy, Suspense } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router";
+const Login = lazy(() => import("../features/auth/Page/Login"));
+const Register = lazy(() => import("../features/auth/Page/Register"));
+const Home = lazy(() => import("../features/Home/Page/Home"));
+const Shop = lazy(() => import("../features/Shop/Page/Shop"));
+const About = lazy(() => import("../features/About/Page/About"));
+const ProductsDetail = lazy(() => import("../features/Shop/Page/ProductsDetail"));
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
-import ProductsDetail from "../features/Shop/Page/ProductsDetail";
+import AuthLayout from "../Layouts/AuthLayout";
+import MainLayout from "../Layouts/MainLayout";
+import Loader from "../Components/Loader";
 
 const router = createBrowserRouter([
     {       
@@ -21,11 +22,17 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <Login />
+                element: (<Suspense fallback={<Loader />}>
+                        <Login />
+                        </Suspense>
+                        )
             },
             {
                 path: "register",
-                element: <Register />
+                element: (<Suspense fallback={<Loader />}>
+                        <Register />
+                        </Suspense>
+                        )
             }
         ]
        }]
@@ -39,19 +46,31 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <Home />
+                element: (<Suspense fallback={<Loader />}>
+                        <Home />
+                        </Suspense>
+                        )
             },
             {
                 path: "shop",
-                element: <Shop />
+                element: (<Suspense fallback={<Loader />}>
+                        <Shop />
+                        </Suspense>
+                        )
             },
             {
                 path: "shop/:id",
-                element: <ProductsDetail />,
+                element: (<Suspense fallback={<Loader />}>
+                        <ProductsDetail />
+                        </Suspense>
+                        )
             },
             {
                 path: "about",
-                element: <About />
+                element: (<Suspense fallback={<Loader />}>
+                        <About />
+                        </Suspense>
+                        )
             }
         ]
       }]
