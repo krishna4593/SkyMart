@@ -1,10 +1,12 @@
 import React from 'react';
 import { FiBox, FiTrendingUp, FiStar, FiTag } from 'react-icons/fi';
 import { productsData } from '../../../Services/products';
+import useCart from '../../../Hooks/useCart';
 
 
 
 const StatsSection = () => {
+  const {totalItems,totalPrice} = useCart();
 
     const topProducts = productsData.filter((product) => product.rating >= 4.5).length;
 
@@ -16,7 +18,7 @@ const StatsSection = () => {
             id: 1,
             icon: <FiBox size={20} className="text-[#CFFF04]" />,
             iconBg: 'bg-[#1f2605]',
-            value: '0',
+            value: totalItems,
             title: 'Cart Items',
             subtitle: 'In your bag'
         },
@@ -24,7 +26,7 @@ const StatsSection = () => {
             id: 2,
             icon: <FiTrendingUp size={20} className="text-[#3b82f6]" />,
             iconBg: 'bg-[#172136]',
-            value: '$0.00',
+            value: totalPrice.toFixed(2),
             title: 'Cart Value',
             subtitle: 'Ready to checkout'
         },

@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
 import { NavLink } from 'react-router';
 import { FaBolt } from 'react-icons/fa6';
 import { FiShoppingCart, FiLogOut } from 'react-icons/fi';
 import { useNavigate } from 'react-router';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../Hooks/useAuth';
 import CartDrawer from '../features/cart/components/CartDrawer';
+import useCart from '../Hooks/useCart';
 
 const Navbar = () => {
   const navigate =useNavigate();
   const {logout} = useAuth();
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { openCart,totalItems } = useCart();
 
   const handleLogout = () => {
     logout();
@@ -71,8 +71,13 @@ const Navbar = () => {
               </div>
               <span className="text-sm font-medium text-gray-300">{JSON.parse(localStorage.getItem("currentUser")).name}</span>
             </div>
-            <button onClick={() => setIsCartOpen(true)} className="text-gray-400 hover:text-white p-2 rounded-full border border-[#333333] bg-[#1A1A1A] hover:bg-[#222222] transition-colors">
+            <button onClick={ openCart} className="relative text-gray-400 hover:text-white p-2 rounded-full border border-[#333333] bg-[#1A1A1A] hover:bg-[#222222] transition-colors">
               <FiShoppingCart size={18} />
+               {totalItems > 0 && (
+               <span className="absolute -top-2 -right-2 bg-[#CFFF04] text-black text-[10px] font-bold min-w-5 h-5 rounded-full flex items-center justify-center px-1">
+              {totalItems}
+             </span>
+            )}
             </button>
             <button onClick={handleLogout} className="text-gray-400 hover:text-white p-2 rounded-full border border-[#333333] bg-[#1A1A1A] hover:bg-[#222222] transition-colors">
               <FiLogOut size={18} />
@@ -81,7 +86,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
-    <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+    <CartDrawer  />
     </>
   );
 };

@@ -25,7 +25,7 @@ const HeroSection = () => {
           </p>
           <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight">
             Welcome back,<br />
-            <span className="text-[#CFFF04]">krishna!</span>
+            <span className="text-[#CFFF04]">{JSON.parse(localStorage.getItem("currentUser")).name}!</span>
           </h1>
           <p className="text-gray-400 text-base max-w-md leading-relaxed">
             Discover today's picks — hand-curated products across electronics, fashion, and more.

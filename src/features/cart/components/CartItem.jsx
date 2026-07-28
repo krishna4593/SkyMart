@@ -1,15 +1,16 @@
 import React from 'react';
 import { FiTrash2 } from 'react-icons/fi';
 import QuantitySelector from './QuantitySelector';
+import useCart from '../../../Hooks/useCart';
 
-const CartItem = ({ item, onUpdateQuantity, onRemoveItem }) => {
+const CartItem = ({ item }) => {
   if (!item) return null;
-
+  const { increaseQuantity, decreaseQuantity, removeFromCart } = useCart();
   return (
     <div className="flex gap-4 p-3 border border-border rounded-2xl bg-card">
       {/* Product Image */}
       <div className="w-20 h-20 bg-white rounded-xl overflow-hidden shrink-0 flex items-center justify-center">
-        {item.image ? (
+        {item.thumbnail ? (
           <img src={item.thumbnail} alt={item.title} className="w-full h-full object-contain" />
         ) : (
           <div className="w-full h-full bg-gray-800" />
@@ -31,11 +32,12 @@ const CartItem = ({ item, onUpdateQuantity, onRemoveItem }) => {
         {/* Actions */}
         <div className="flex items-center justify-between mt-2">
           <QuantitySelector 
-            quantity={item.quantity} 
-            onUpdate={(newQuantity) => onUpdateQuantity?.(item.id, newQuantity)} 
+            quantity={item.quantity}
+            onIncrease={() => increaseQuantity(item.id)}
+            onDecrease={() => decreaseQuantity(item.id)}
           />
           <button 
-            onClick={() => onRemoveItem?.(item.id)}
+            onClick={() => removeFromCart(item.id)}
             className="text-[#ff4d4d] hover:text-red-400 transition-colors p-1"
             aria-label="Remove item"
           >

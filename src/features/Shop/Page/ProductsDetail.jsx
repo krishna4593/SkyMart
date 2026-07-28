@@ -5,18 +5,14 @@ import { FiHeart, FiShoppingCart, FiTruck, FiShield, FiRotateCcw, FiChevronRight
 import ProductBadge from '../Components/ProductBadge';
 import ProductGrid from '../Components/ProductGrid';
 import { productsData } from '../../../Services/products';
+import useCart from '../../../Hooks/useCart';
 
 const ProductsDetail = () => {
-  
   const { id } = useParams();
-
+  const {addToCart,decreaseQuantity, increaseQuantity,getCartItem} = useCart();
   const product = productsData.find(
   (product) => product.id === Number(id)
   );
-
-  const relatedProducts = productsData.filter((item) =>
-    item.category === product.category && item.id !== product.id)
-  .slice(0, 4);
 
   if (!product) {
   return (
@@ -25,8 +21,13 @@ const ProductsDetail = () => {
     </div>
   );
 }
+const cartItem = getCartItem(product.id);
+const relatedProducts = productsData.filter((item) =>
+    item.category === product.category && item.id !== product.id)
+  .slice(0, 4);
 
   const {
+    
     title,
     category,
     price,
@@ -128,19 +129,31 @@ const ProductsDetail = () => {
             {/* Actions */}
             <div className="flex items-center gap-4 mb-10">
               {/* Quantity Selector UI */}
-              <div className="flex items-center justify-between bg-[#1a1a1a] border border-neutral-800 rounded-xl px-4 py-4 w-32">
-                <button className="text-neutral-400 hover:text-white transition-colors">
-                  <FiMinus size={20} />
-                </button>
-                <span className="text-white font-semibold text-lg">1</span>
-                <button className="text-neutral-400 hover:text-white transition-colors">
-                  <FiPlus size={20} />
-                </button>
-              </div>
+              
+            {cartItem ? (
+           <div className="flex-grow h-14 flex items-center justify-between bg-[#c4ff00] hover:bg-[#b0e600] transition-colors text-black px-6 rounded-xl">
 
-              <button className="flex-grow flex items-center justify-center gap-3 bg-[#c4ff00] hover:bg-[#b0e600] text-black py-4 px-8 rounded-xl font-bold text-lg transition-colors">
-                <FiShoppingCart size={22} /> Add to Cart
-              </button>
+           <button
+           onClick={() => decreaseQuantity(product.id)}
+           className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-black/10 transition-all">
+           <FiMinus size={20} />
+          </button>
+
+          <span className="text-2xl font-bold">
+            {cartItem.quantity}
+          </span>
+
+          <button
+             onClick={() => increaseQuantity(product.id)}
+             className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-black/10 transition-all"
+           >
+             <FiPlus size={20} />
+           </button>
+          </div>
+              ) :(
+              <button
+              onClick={() => addToCart(product)}
+              className="flex-grow h-14 flex items-center justify-center gap-3 bg-[#c4ff00] hover:bg-[#b0e600] text-black rounded-xl font-bold text-lg transition-colors"><FiShoppingCart size={22} />         Add to Cart</button>)}
 
               <button className="p-4 bg-[#1a1a1a] border border-neutral-800 hover:border-neutral-600 rounded-xl text-neutral-400 hover:text-white transition-colors flex items-center justify-center">
                 <FiHeart size={24} />

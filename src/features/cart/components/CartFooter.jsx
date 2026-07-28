@@ -1,6 +1,8 @@
 import React from 'react';
+import useCart from '../../../Hooks/useCart';
 
 const CartFooter = ({ total = 0, onCheckout, onClearCart }) => {
+  const{clearCart}= useCart()
   return (
     <div className="p-5 border-t border-border mt-auto">
       <div className="flex items-center justify-between mb-4">
@@ -21,7 +23,7 @@ const CartFooter = ({ total = 0, onCheckout, onClearCart }) => {
 
       <div className="mt-4 text-center">
         <button 
-          onClick={onClearCart}
+          onClick={()=>clearCart()}
           className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
         >
           Clear cart

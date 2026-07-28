@@ -1,7 +1,9 @@
 import React from 'react';
 import { LuBox } from 'react-icons/lu';
+import { useNavigate } from 'react-router';
 
 const EmptyCart = ({ onClose }) => {
+  const navigate = useNavigate();
   return (
     <div className="h-full flex flex-col items-center justify-center text-center p-6">
       <div className="w-20 h-20 bg-card rounded-2xl flex items-center justify-center border border-border mb-6">
@@ -11,7 +13,7 @@ const EmptyCart = ({ onClose }) => {
       <p className="text-sm text-gray-400 mb-8">Go shop something cool!</p>
       
       <button 
-        onClick={onClose}
+        onClick={()=>{navigate("/home/shop"); onClose()}}
         className="px-6 py-2.5 bg-primary text-black font-semibold rounded-lg hover:bg-primary-dark transition-colors"
       >
         Browse Products
